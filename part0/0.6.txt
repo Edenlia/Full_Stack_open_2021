@@ -1,0 +1,7 @@
+title 0.6
+
+Browser->Server:HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+Server-->Browser: status 201
+note over Browser:
+browser add new note to the page
+end note
