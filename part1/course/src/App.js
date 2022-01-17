@@ -1,31 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const Hello = (props) => {
+const History = (props) => {
+    if (props.allClicks.length === 0) {
+        return (
+            <div>
+                the app is used by pressing the buttons
+            </div>
+        )
+    }
     return (
         <div>
-            <p>
-                Hello {props.name}, you are {props.age} years old
-            </p>
+            button press history: {props.allClicks.join(' ')}
         </div>
     )
 }
 
-const Footer = () => {
-    return (
-        <div>
-            <a href="https://github.com/mluukkai">mluukkai</a>
-            greeting app created by <a href="https://github.com/mluukkai">mluukkai</a>
-        </div>
-    )
-}
+const Button = ({ handleClick, text }) => (
+    <button onClick={handleClick}>
+        {text}
+    </button>
+)
 
 const App = () => {
+    const [value, setValue] = useState(10)
+
+    const hello = (who) => {
+        const handler = () => {
+            console.log('hello', who)
+        }
+        return handler
+    }
+
     return (
-    <>
-        <h1>Greetings</h1>,
-        <Hello name="Maya" age={26 + 10} />,
-        <Footer />
-    </>
+        <div>
+            {value}
+            <button onClick={hello('world')}>button</button>
+            <button onClick={hello('react')}>button</button>
+            <button onClick={hello('function')}>button</button>
+        </div>
     )
 }
 
