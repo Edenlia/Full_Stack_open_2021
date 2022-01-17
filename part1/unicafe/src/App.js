@@ -6,9 +6,32 @@ const Button = ({handler, text}) => {
   )
 }
 
-const Letter = ({text, num}) => (
-    <div>{text} {num}</div>
+const StatisticLine = ({text, value}) => (
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
 )
+
+const Statistics = ({good, neutral, bad}) => {
+  if (good === 0 && neutral === 0 && bad === 0)
+    return (
+        <div>No feedBack given</div>
+    )
+  const average = (good - bad) / (good + neutral + bad)
+  const positive = good / (good + neutral + bad) * 100
+  return (
+      <table>
+        <tbody>
+          <StatisticLine text="good" value={good}></StatisticLine>
+          <StatisticLine text="neutral" value={neutral}></StatisticLine>
+          <StatisticLine text="bad" value={bad}></StatisticLine>
+          <StatisticLine text="average" value={average}></StatisticLine>
+          <StatisticLine text="positive" value={positive.toString() + "%"}></StatisticLine>
+        </tbody>
+      </table>
+  )
+}
 
 const App = () => {
   // save clicks of each button to own state
@@ -35,9 +58,8 @@ const App = () => {
         <Button handler={() => neutralReview()} text="neutral"></Button>
         <Button handler={() => badReview()} text="bad"></Button>
         <h1>statistics</h1>
-        <Letter text="good" num={good}></Letter>
-        <Letter text="neutral" num={neutral}></Letter>
-        <Letter text="bad" num={bad}></Letter>
+
+        <Statistics good={good} neutral={neutral} bad={bad}></Statistics>
       </div>
   )
 }
